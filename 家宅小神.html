@@ -1,0 +1,542 @@
+<html lang="en" class="scroll-smooth"><head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SocioSpark - Digital Marketing Agency</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+<style>
+@keyframes marquee {
+0% { transform: translateX(0%); }
+100% { transform: translateX(-50%); }
+}
+@keyframes fadeSlideIn {
+0% { opacity: 0; transform: translateY(30px); }
+100% { opacity: 1; transform: translateY(0); }
+}
+.animate-marquee {
+animation: marquee 20s linear infinite;
+}
+.animate-marquee-slow {
+animation: marquee 30s linear infinite;
+}
+.bg-grid-pattern {
+background-size: 40px 40px;
+background-image:
+linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+.brutalist-shadow {
+box-shadow: 8px 8px 0px 0px #000000;
+transition: all 0.2s ease;
+}
+.brutalist-shadow:hover {
+box-shadow: 4px 4px 0px 0px #000000;
+transform: translate(4px, 4px);
+}
+</style>
+</head>
+<body class="antialiased selection:bg-[#B9FF66] selection:text-black overflow-x-hidden text-zinc-900 bg-[#f3f4f6]" style="font-family: 'Bricolage Grotesque', sans-serif;">
+
+<!-- Background (image) added by Aura -->
+<div class="fixed top-0 w-full h-screen bg-cover bg-center -z-10" style="background-image: url(&quot;https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/2a73a34b-8524-4c5f-9868-795ace48b3d5_3840w.png&quot;);; mask-image: linear-gradient(to bottom, transparent, black 0%, black 80%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 0%, black 80%, transparent)" data-alpha-mask="80"></div>
+  
+  <!-- Navigation -->
+  <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-50">
+    <div class="flex items-center gap-2">
+      <span class="text-4xl font-bold tracking-tighter">GRADUATION</span>
+    </div>
+
+    <div class="hidden lg:flex items-center gap-10 text-lg font-bold bg-white px-8 py-3 rounded-full border-2 border-black brutalist-shadow text-blue-800">
+      <a href="#services" class="transition-colors hover:text-blue-600">Six immortals</a>
+      <a href="#seo" class="transition-colors hover:text-blue-600">Smart home</a>
+      <a href="#ppc" class="transition-colors hover:text-blue-600">User preferences</a>
+      <a href="#case-studies" class="transition-colors hover:text-blue-600">Competitive product analysis</a>
+    </div>
+
+    <div class="hidden lg:block">
+      <a href="#contact" class="border-2 border-black rounded-xl px-8 py-4 text-black font-bold text-lg brutalist-shadow bg-blue-600">Other related</a>
+    </div>
+
+    <!-- Mobile Menu Icon -->
+    <button class="lg:hidden text-black bg-white p-2 border-2 border-black rounded-lg brutalist-shadow">
+      <iconify-icon icon="solar:hamburger-menu-linear" class="text-3xl"></iconify-icon>
+    </button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="max-w-7xl mx-auto px-6 py-12 lg:py-20 relative">
+    
+    <div class="grid lg:grid-cols-2 gap-16 z-10 relative gap-x-16 gap-y-16 items-center">
+      <div class="max-w-xl hero-content">
+        <div class="inline-block bg-white border-2 border-black px-4 py-2 rounded-full font-bold mb-6 transform -rotate-2 brutalist-shadow">Home,taken care of by little gods.</div>
+        <h1 class="text-6xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.9] mb-8 uppercase">家宅小神 <br>
+  <span class="text-transparent bg-clip-text" style="-webkit-text-stroke: 2px black; color: #2563EB">little gods at home</span>
+</h1>
+        <p class="text-2xl mb-10 leading-snug font-medium text-blue-800">It's not religious worship,but"folk IP and AI butler"——an exploration of new ways to carry forward the tradition of deities and folk customs in the modern era.</p>
+        <div class="flex flex-col sm:flex-row gap-6 font-bold">
+          <button class="brutalist-shadow flex gap-3 group text-xl text-blue-600 bg-black border-black border-2 rounded-2xl pt-5 pr-10 pb-5 pl-10 gap-x-3 gap-y-3 items-center justify-center">
+            这是关于家宅六神与智能家居结合的探索
+            <iconify-icon icon="solar:arrow-right-up-linear" class="text-2xl group-hover:rotate-45 transition-transform"></iconify-icon>
+          </button>
+          <a href="#services" class="bg-white text-black text-xl px-10 py-5 rounded-2xl brutalist-shadow border-2 border-black flex justify-center items-center gap-3">
+            start
+          </a>
+        </div>
+      </div>
+
+      <!-- Clean Dashboard/Chart Illustration -->
+      <div class="relative w-full h-[500px] lg:h-[600px] flex items-center justify-center hidden md:flex hero-illustration">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <!-- Background Accent -->
+          
+          
+          <!-- Main Dashboard Card -->
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wild Marquee -->
+  <div class="w-full overflow-hidden border-y-4 border-black py-4 mt-12 transform -rotate-1 relative z-20 shadow-[0_8px_0_0_rgba(0,0,0,1)] bg-blue-600">
+    <div class="flex whitespace-nowrap w-[200%]">
+      <div class="animate-marquee flex gap-10 text-3xl md:text-5xl font-black tracking-tighter uppercase items-center text-black w-1/2 justify-around">
+        <span class="">民俗文化</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span class="">家庭AI管家</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span class="">智能系统</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span class="">趣味</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span class="">神仙看家</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span class="">新时代</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+      </div>
+      <div class="animate-marquee flex gap-10 text-3xl md:text-5xl font-black tracking-tighter uppercase items-center text-black w-1/2 justify-around">
+        <span>民俗文化</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span>家庭AI管家</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span>智能系统</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span>趣味</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span>神仙看家</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+        <span>新时代</span> <iconify-icon icon="solar:star-bold"></iconify-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moving Logos Section -->
+  <section class="py-16 bg-white border-b-4 border-black overflow-hidden relative">
+    <div class="max-w-7xl mx-auto px-6 text-center mb-10">
+      <p class="text-sm font-bold tracking-widest uppercase text-blue-600">LITTE GODS AT HOME</p>
+    </div>
+    
+    <div class="flex whitespace-nowrap w-[200%] opacity-80 hover:opacity-100 transition-opacity duration-300">
+      <!-- First set -->
+      <div class="animate-marquee-slow flex justify-around items-center w-1/2 grayscale hover:grayscale-0 transition-all duration-500">
+        <span class="text-5xl font-black tracking-tighter text-[#E50914] transform scale-y-110 mx-10">灶王爷</span>
+        <span class="lowercase text-5xl font-bold text-violet-500 tracking-tighter mx-10">厕神紫姑</span>
+        <div class="flex flex-col items-center mx-10">
+          <span class="text-5xl font-semibold tracking-tighter text-black lowercase leading-none">门神</span>
+          
+        </div>
+        
+        <span class="text-5xl font-black text-pink-400 tracking-tighter mx-10">床公床母</span>
+        <span class="text-5xl font-bold tracking-tighter text-black mx-10">中霤神</span>
+        <span class="text-5xl font-black tracking-tighter mx-10 text-blue-600">井泉童子</span>
+      </div>
+      <!-- Second set (Duplicate for seamless scroll) -->
+      <div class="animate-marquee-slow flex justify-around items-center w-1/2 grayscale hover:grayscale-0 transition-all duration-500">
+        <span class="text-5xl font-black tracking-tighter text-[#E50914] transform scale-y-110 mx-10">灶王爷</span>
+        <span class="text-5xl font-bold tracking-tighter text-[#2D8CFF] lowercase mx-10">厕神紫姑</span>
+        <div class="flex flex-col items-center mx-10">
+          <span class="text-5xl font-semibold tracking-tighter text-black lowercase leading-none">门神</span>
+        </div>
+        <span class="text-5xl font-black tracking-tighter text-[#1DB954] mx-10">床公床母</span>
+        <span class="text-5xl font-bold tracking-tighter text-black mx-10">中霤神</span>
+        <span class="text-5xl font-black tracking-tighter mx-10 text-blue-600">井泉童子</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Component -->
+  <section class="max-w-7xl mx-auto px-6 py-24" id="services">
+    <!-- Services Header with Parallel Illustration -->
+    <div class="grid lg:grid-cols-12 gap-10 items-center mb-20 fade-up-element">
+      <div class="lg:col-span-8">
+        <div class="inline-block text-black font-bold px-4 py-2 border-2 border-black rounded-lg mb-6 transform -rotate-2 bg-blue-600">Six immortals</div>
+        <h2 class="text-4xl font-bold tracking-tighter leading-tight lg:text-2xl">六位神属于中国传统民间信仰中的这六位神都属于中国传统民间信仰中的“家宅神”，分别守护门、灶、厕、床、井、宅中等家中关键空间。它们的共同点在于：不离日常起居，职责都与饮食、睡眠、出入、水源、宅基、洁净等生活细节相关；既驱邪避灾、护佑平安，也监察善恶、维系家宅秩序，体现对“家”的细致守护与敬畏。</h2>
+      </div>
+      
+      <!-- Parallel Illustration -->
+      <div class="lg:col-span-4 flex justify-center lg:justify-end relative">
+        <div class="w-48 h-48 bg-white border-4 border-black rounded-full brutalist-shadow flex flex-col items-center justify-center relative z-10 group" role="button" onclick="window.location.href='/page'">
+  <iconify-icon icon="solar:target-linear" class="text-[5rem] text-black group-hover:scale-110 transition-transform duration-300"></iconify-icon>
+</div>
+        <!-- Decorative blob behind -->
+        <div class="absolute w-48 h-48 border-4 border-black rounded-full translate-x-4 translate-y-4 bg-blue-600"></div>
+        <!-- Little sparks -->
+      </div>
+    </div>
+
+    <!-- 6 Services Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 services-grid gap-x-8 gap-y-8">
+      
+      <!-- Service 1 (Links to #seo) -->
+      <div class="p-8 rounded-[30px] border-4 border-black brutalist-shadow flex flex-col justify-between min-h-[320px] group transition-colors bg-blue-100 hover:bg-blue-600">
+        <div class="">
+          <h3 class="text-3xl font-black tracking-tighter leading-tight mb-4">灶神，俗称灶王爷、灶君。掌管家中饮食与烟火，也负责记录一家人的言行善恶。 每年腊月二十三或二十四，灶神会上天向玉帝禀报这家人的功过，所以民间有“上天言好事，下界保平安”的说法。</h3>
+        </div>
+        <a href="/page" class="flex items-center gap-4 text-xl font-bold mt-auto group-hover:text-black">灶王爷</a>
+      </div>
+
+      <!-- Service 2 (Links to #ppc) -->
+      <div class="p-8 rounded-[30px] border-4 border-black brutalist-shadow flex flex-col justify-between min-h-[320px] group transition-colors hover:bg-black hover:text-white bg-blue-600">
+        <div class="">
+          <h3 class="text-3xl font-black tracking-tighter leading-tight mb-4">紫姑是民间最通行的厕神，相传她生前为妾，受迫害死于厕中，后被奉为神。她不只管厕所洁净，也主占卜吉凶、护佑妇女与孩童。旧时正月十五常有“迎紫姑”的习俗，借以问年成、姻缘和家宅祸福。</h3>
+        </div>
+        <a href="/page" class="flex items-center gap-4 text-xl font-bold mt-auto">厕神紫姑</a>
+      </div>
+
+      <!-- Service 3 (Links to #social) -->
+      <div class="bg-black text-white p-8 rounded-[30px] border-4 border-black brutalist-shadow flex flex-col justify-between min-h-[320px] group transition-colors hover:bg-blue-800">
+        <div class="">
+          <h3 class="text-3xl font-black tracking-tighter leading-tight mb-4">门神是家宅门户的守护者，负责镇守大门、驱邪避鬼、保出入平安。最早有神话中的神荼、郁垒，后来民间更常见的是秦琼、尉迟恭等武将门神。除夕贴门神，便是为家宅请一道“守门防线”。</h3>
+        </div>
+        <a href="/page" class="flex items-center gap-4 text-xl font-bold mt-auto text-blue-600">门神</a>
+      </div>
+
+      <!-- Service 4 (Links to #email) -->
+      <div class="p-8 rounded-[30px] border-4 border-black brutalist-shadow flex flex-col justify-between min-h-[320px] group transition-colors bg-blue-100 hover:bg-blue-600">
+        <div class="">
+          <h3 class="text-3xl font-black tracking-tighter leading-tight mb-4">床公床母是守护卧室与睡眠的神灵，也称床神。他们护佑安寝、夫妻和顺、孩童夜安，也与求子、安胎、幼儿健康有关。民间祭祀时常以茶敬床公、酒敬床母；新婚、生子、搬家安床时尤其重视。</h3>
+        </div>
+        <a href="/page" class="flex items-center gap-4 text-xl font-bold mt-auto group-hover:text-black">床公床母</a>
+      </div>
+
+      <!-- Service 5 (Links to #content) -->
+      <div class="p-8 rounded-[30px] border-4 border-black brutalist-shadow flex flex-col justify-between min-h-[320px] group transition-colors hover:bg-black hover:text-white bg-blue-600">
+        <div class="">
+          <h3 class="text-3xl font-black tracking-tighter leading-tight mb-4">井泉童子是井水之神，江南一带多称“井泉童子”，北方也有“水母娘娘”等说法。他守护水源洁净、家人饮水安康，也常被看作与家宅财气、水运有关。古时除夕封井、年后开井，都要祭拜井神。</h3>
+        </div>
+        <a href="/page" class="flex items-center gap-4 text-xl font-bold mt-auto">井泉童子</a>
+      </div>
+
+      <!-- Service 6 (Links to #analytics) -->
+      <div class="bg-black text-white p-8 rounded-[30px] border-4 border-black brutalist-shadow flex flex-col justify-between min-h-[320px] group transition-colors hover:bg-blue-800">
+        <div class="">
+          <h3 class="text-3xl font-black tracking-tighter leading-tight mb-4">中霤神是古代家宅中的土宅之神，居于房屋中央，掌管宅基与一家大小之事。它源于先秦“五祀”中的中霤，后来其职能在很多地方逐渐与土地神、宅神相近，都是护佑宅基安稳、家宅安宁。</h3>
+        </div>
+        <a href="/page" class="flex items-center gap-4 text-xl font-bold mt-auto text-blue-600">中霤神</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Detailed Sections (Functioning as Sub-Pages) -->
+  
+  
+  <!-- SEO Detail Section -->
+  <section class="max-w-7xl mx-auto px-6 py-24 border-t-4 border-black border-dashed" id="seo">
+    <div class="grid lg:grid-cols-2 gap-16 fade-up-element gap-x-16 gap-y-16 items-center">
+      <div class="order-2 lg:order-1 relative h-[400px]">
+        <div class="absolute inset-0 bg-white border-4 border-black rounded-[30px] brutalist-shadow p-8 flex flex-col justify-between z-10">
+          <div class="w-full h-1/2 border-4 border-black rounded-xl p-4 flex gap-4 bg-blue-100">
+             
+             <div class="uppercase text-2xl font-black tracking-tighter">家宅六神是传统住宅的“空间守护系统”，智能家居是现代住宅的“主动守护系统”。两者在空间分工、守护逻辑和仪式感上天然适配。</div>
+          </div>
+          <div class="w-full h-[40%] border-4 border-black rounded-xl p-4 flex items-center justify-between bg-blue-600">
+            <span class="text-2xl font-black uppercase tracking-tighter">智能家居不只是“能联网”，关键看它能不能做到少操作、稳联动、懂场景、保护隐私。</span>
+            <iconify-icon icon="solar:medal-star-linear" class="text-4xl"></iconify-icon>
+          </div>
+        </div>
+        <div class="absolute inset-0 bg-black border-4 border-black rounded-[30px] translate-x-4 translate-y-4"></div>
+      </div>
+      <div class="order-1 lg:order-2">
+        <div class="inline-flex gap-2 font-bold text-blue-600 bg-black border-black border-2 rounded-full mb-6 pt-2 pr-4 pb-2 pl-4 gap-x-2 gap-y-2 items-center">Smart home<iconify-icon icon="solar:magnifer-zoom-in-linear" class=""></iconify-icon></div>
+        <h2 class="text-4xl lg:text-5xl font-black tracking-tighter leading-tight mb-6">
+          关于智能家居的前期调研
+        </h2>
+        <p class="text-xl font-medium mb-8 text-blue-700">什么是智能家居？</p>
+        <ul class="space-y-4 mb-10 font-bold text-lg">
+          <li class="flex gap-3 gap-x-3 gap-y-3 items-center"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>智能家居可以理解为：通过物联网、传感器、控制系统和网络连接，把家里的灯光、门锁、家电、安防、环境设备等连接起来，实现远程控制、自动化联动和场景化服务。</li>
+          
+          <li class="flex items-center gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>它大致经历了三个阶段： 1. 单品控制：手机或遥控器控制单个设备，设备之间基本不联动。 2. 场景联动：通过网关、App、语音助手实现“回家模式”“睡眠模式”等联动。 3. 主动智能：系统能感知用户状态和环境变化，主动调节灯光、空调、安防、用水等。</li>
+        </ul>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- PPC Detail Section -->
+  <section class="border-dashed brutalist-shadow bg-blue-100 max-w-7xl border-black rounded-[50px] border-t-4 border-b-4 mt-10 mr-auto mb-10 ml-auto pt-24 pr-6 pb-24 pl-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center fade-up-element">
+      <div class="">
+        <div class="inline-flex font-bold text-black bg-blue-600 border-black border-2 rounded-full mb-6 pt-2 pr-4 pb-2 pl-4 gap-x-2 gap-y-2 items-center">智能家居整体趋势</div>
+        <h2 class="text-4xl lg:text-5xl font-black tracking-tighter leading-tight mb-6">2025年中国智能家居市场规模约8154亿元，同比增长29%，预计2030年将突破1.8万亿元。</h2>
+        <p class="text-xl font-medium mb-8 text-blue-700">2025年智能家居设备出货量约 2.79亿台。
+2026年预计突破 3亿台，同比增长约 8.8%。</p>
+        <ul class="space-y-4 mb-10 font-bold text-lg">
+          <li class="flex gap-3 gap-x-3 gap-y-3 items-center"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>渗透率数据存在口径差异</li>
+          <li class="flex gap-3 gap-x-3 gap-y-3 items-center"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>有的报告认为智能家居设备渗透率约 16%；也有报告认为家电AI渗透率在2026年一季度已突破 50%。</li>
+          <li class="flex gap-3 gap-x-3 gap-y-3 items-center"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>这说明“智能家电”和“全屋智能系统”的普及程度并不相同：单品智能增长更快，真正打通全屋联动的系统仍在普及中。</li>
+        </ul>
+        <button class="bg-black text-white text-xl font-bold px-8 py-4 rounded-xl brutalist-shadow border-2 border-black transition-colors hover:bg-blue-800">艾媒咨询、IDC、前瞻产业研究院、中商产业研究院</button>
+      </div>
+      <div class="relative h-[400px]">
+        <div class="absolute inset-0 bg-white border-4 border-black rounded-[30px] brutalist-shadow p-8 flex flex-col justify-center gap-6 z-10">
+          <div class="flex justify-between items-center border-b-4 border-black pb-4">
+             <span class="text-xl font-bold uppercase">中国智能家居市场规模</span>
+             <span class="px-3 py-1 rounded border-2 border-black font-bold bg-blue-600">人民币</span>
+          </div>
+          <div class="flex gap-2 h-40 gap-x-2 gap-y-2 items-end">
+             <div class="w-1/4 h-[20%] border-2 border-black rounded-t bg-blue-200">2023：7558</div>
+             <div class="w-1/4 h-[40%] border-2 border-black rounded-t bg-blue-300">2024：7850</div>
+             <div class="w-1/4 h-[60%] border-2 border-black rounded-t bg-blue-800">2025：9556.5</div>
+             <div class="w-1/4 h-[100%] border-2 border-black rounded-t relative bg-blue-600">2026：9980</div>
+          </div>
+        </div>
+        <div class="absolute inset-0 border-4 border-black rounded-[30px] translate-x-4 translate-y-4 bg-blue-600"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Media Section -->
+  <section class="max-w-7xl mx-auto px-6 py-24 border-t-4 border-black border-dashed" id="ppc">
+    <div class="grid lg:grid-cols-2 gap-16 fade-up-element gap-x-16 gap-y-16 items-center">
+      <div class="order-2 lg:order-1 relative h-[400px]">
+        <div class="absolute inset-0 border-4 border-black rounded-[30px] brutalist-shadow p-8 flex items-center justify-center z-10 bg-blue-600">
+          <div class="w-[60%] h-[90%] bg-white border-4 border-black rounded-[20px] p-4 flex flex-col gap-4">
+             <div class="flex items-center gap-3 border-b-2 pb-3 border-blue-200">
+               <div class="w-10 h-10 bg-black rounded-full border-2 border-black"></div>
+               <div>
+                 <div class="w-20 h-3 rounded mb-1 bg-blue-300"></div>
+                 <div class="w-12 h-2 rounded bg-blue-200"></div>
+               </div>
+             </div>
+             <div class="flex-1 border-2 border-black rounded-xl flex items-center justify-center relative overflow-hidden bg-blue-100">
+               <iconify-icon icon="solar:heart-angle-linear" class="text-6xl text-black"></iconify-icon>
+               <div class="absolute bottom-2 right-2 bg-black text-white px-2 py-1 text-xs font-bold rounded border-2 border-black">够智能、好看、耐用、实用且价格合理。</div>
+             </div>
+          </div>
+        </div>
+        <div class="absolute inset-0 bg-black border-4 border-black rounded-[30px] translate-x-4 translate-y-4"></div>
+      </div>
+      <div class="order-1 lg:order-2">
+        <div class="inline-flex gap-2 font-bold text-white bg-black border-black border-2 rounded-full mb-6 pt-2 pr-4 pb-2 pl-4 gap-x-2 gap-y-2 items-center">智能家居用户购买偏好<iconify-icon icon="solar:smartphone-update-linear" class=""></iconify-icon></div>
+        <h2 class="text-4xl lg:text-5xl font-black tracking-tighter leading-tight mb-6">智能家居用户购买偏好</h2>
+        <p class="text-xl font-medium mb-8 text-blue-700">智能家居用户偏好可以概括为：以场景为核心，以安全和便捷为基础，以智能体验、外观品质和性价比为决策关键。</p>
+                <p class="text-xl font-medium mb-8 text-blue-700">智能家居用户偏好正从“单品联网”转向“场景体验”</p>
+        <ul class="space-y-4 mb-10 font-bold text-lg">
+          <li class="flex gap-3 gap-x-3 gap-y-3 items-center"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>消费者在购买时最看重的首先是智能化程度，占比达 56.32%</li>
+          <li class="flex items-center gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>其次是外观设计，占比 42.48%</li>
+          <li class="flex gap-3 gap-x-3 gap-y-3 items-center"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>产品质量占比 38.60%</li>
+          <li class="flex gap-3 gap-x-3 gap-y-3 items-center"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>价格与性价比占比 36.37%</li>
+         <li class="flex gap-3 gap-x-3 gap-y-3 items-center"><iconify-icon icon="solar:check-circle-linear" class="text-2xl bg-black rounded-full text-blue-600"></iconify-icon>另有 22.82% 的用户会关注以旧换新等国补力度</li>
+        </ul>
+        <button class="bg-white text-black text-xl font-bold px-8 py-4 rounded-xl brutalist-shadow border-4 border-black transition-colors hover:bg-blue-600">数据：江苏省消保委《智能家居家电产品消费调查报告》。</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA Box -->
+  <section class="max-w-7xl mx-auto px-6 pb-24" id="contact">
+    <div class="lg:p-16 brutalist-shadow flex flex-col lg:flex-row gap-10 overflow-hidden fade-up-element bg-blue-100 border-black border-4 rounded-[40px] pt-10 pr-10 pb-10 pl-10 relative gap-x-10 gap-y-10 items-center justify-between">
+      <div class="absolute -right-10 -top-10 w-40 h-40 border-4 border-black rounded-full opacity-50 z-0 bg-blue-600"></div>
+      
+      <div class="max-w-2xl relative z-10">
+        <h3 class="text-4xl lg:text-5xl font-black tracking-tighter mb-6">技术与生态趋势</h3>
+        <p class="text-xl font-medium text-blue-700">行业正从 1.0 单品控制、2.0 场景联动，进入 3.0 主动智能阶段。</p>
+                <p class="text-xl font-medium text-blue-700">AI大模型、多模态感知、边缘计算和本地自动化成为关键能力，设备开始从“听指令执行”转向“感知环境、理解意图、主动服务”。</p>
+                        <p class="text-xl font-medium text-blue-700">互联互通方面，Matter协议持续升级，2026年已发布到 Matter 1.6，配网、跨生态共享和温控设备协同能力有所增强。</p>
+      </div>
+      
+    </div>
+  </section>
+
+   <!-- CTA Box -->
+  <section class="max-w-7xl mx-auto px-6 pb-24" id="contact">
+    <div class="lg:p-16 brutalist-shadow flex flex-col lg:flex-row gap-10 overflow-hidden fade-up-element bg-blue-100 border-black border-4 rounded-[40px] pt-10 pr-10 pb-10 pl-10 relative gap-x-10 gap-y-10 items-center justify-between">
+      <div class="absolute -right-10 -top-10 w-40 h-40 border-4 border-black rounded-full opacity-50 z-0 bg-blue-600"></div>
+      
+      <div class="max-w-2xl relative z-10">
+        <h3 class="text-4xl lg:text-5xl font-black tracking-tighter mb-6">品类与政策机会</h3>
+        <p class="text-xl font-medium text-blue-700">2026年，智能门锁、智能照明、智能清洁、智能厨卫、净水、中枢网关等品类增长较快；全屋智能方案正从高端前装市场向存量房轻改市场扩展。</p>
+                <p class="text-xl font-medium text-blue-700">政策层面，商务部等八部门已发布《促进智能家居消费行动方案》，重点支持优质供给、互联互通标准、以旧换新和适老化智能家居。</p>
+                        
+      </div>
+      
+    </div>
+  </section>
+
+
+  <!-- Case Studies Section -->
+  <section class="max-w-7xl mx-auto px-6 py-20 border-t-4 border-black border-dashed" id="case-studies">
+    <div class="fade-up-element mb-16 max-w-3xl">
+      <div class="inline-block bg-white text-black font-bold px-4 py-2 border-2 border-black rounded-lg mb-6 transform rotate-2 brutalist-shadow">Competitive product analysis</div>
+      <h2 class="text-4xl lg:text-5xl font-black tracking-tighter leading-tight">现有竞品更多是在做“国风美学”和“吉祥文化”，
+还没有成熟品牌系统地把“家宅六神”转译为全屋智能守护框架。</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Case 1 -->
+      <div class="bg-black text-white p-10 rounded-[30px] border-4 border-black shadow-[8px_8px_0_0_#B9FF66] flex flex-col justify-between min-h-[350px] transform transition-transform hover:-translate-y-2">
+        <p class="text-xl leading-relaxed font-medium mb-8 text-blue-300">目前民俗与智能家居的结合还比较浅，主要集中在<span class="font-bold text-blue-600">开关、门锁、厨电和文创单品。</span>德力西“开门红”开关把福纹、生肖、敦煌天马等吉祥符号融入日常开关；萤石与国家图书馆联名推出山海经系列智能锁，把瑞兽做成门锁屏上的互动形象；卡萨帝、华帝、FotileStyle则通过东方美学、新中式厨房和隐逸空间表达家宅秩序与烟火气。</p>
+        <a href="#" class="flex items-center gap-3 text-xl font-bold group text-blue-600">民俗元素如何进入智能家居<iconify-icon icon="solar:arrow-right-up-linear" class="text-2xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></iconify-icon></a>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="bg-black text-white p-10 rounded-[30px] border-4 border-black shadow-[8px_8px_0_0_#B9FF66] flex flex-col justify-between min-h-[350px] transform transition-transform hover:-translate-y-2">
+        <p class="text-xl leading-relaxed font-medium mb-8 text-blue-300">AI黎侯虎等非遗文创把传统守护形象做成能对话、讲故事、陪伴互动的智能载体。 <span class="font-bold text-blue-600">它还不是完整智能家居，</span> 但说明民俗意象可以转译为家庭陪伴、儿童互动和空间提醒，而不必做成 <span class="font-bold text-blue-600">具象神像。</span></p>
+        <a href="#" class="flex items-center gap-3 text-xl font-bold group text-blue-600">非遗与AI交互的尝试<iconify-icon icon="solar:arrow-right-up-linear" class="text-2xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></iconify-icon></a>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="bg-black text-white p-10 rounded-[30px] border-4 border-black shadow-[8px_8px_0_0_#B9FF66] flex flex-col justify-between min-h-[350px] transform transition-transform hover:-translate-y-2">
+        <p class="text-xl leading-relaxed font-medium mb-8 text-blue-300">现有产品多是<span class="font-bold text-blue-600">吉祥符号、典籍瑞兽或非遗陪伴，</span>还没有人把“家宅六神”做成一套完整的 <span class="font-bold text-blue-600">全屋守护系统。</span>设计可以避开“迷信化神像”，转而做空间守护与家庭仪式：可把门神、灶神、井神、厕神、床神、中霤分别转译为入户安防、厨房安全、水质管理、卫浴洁净、助眠起夜和全屋中枢。这样既有民俗叙事，也能落到真实可体验的智能场景。</p>
+        <a href="#" class="flex items-center gap-3 text-xl font-bold group text-blue-600">竞品空白与机会点<iconify-icon icon="solar:arrow-right-up-linear" class="text-2xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></iconify-icon></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black pt-20 pb-10" id="footer">
+    <div class="animate-on-scroll max-w-7xl mr-auto ml-auto pr-6 pl-6" style="animation: 0.8s ease-out 0.1s 1 normal both running fadeSlideIn;">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-y-12 gap-x-8 mb-16 w-full">
+        <!-- Branding Header -->
+        <div class="col-span-1 md:col-span-12 flex gap-3 md:gap-5 animate-on-scroll pb-4 gap-x-3 gap-y-3 items-baseline" style="animation: 1s ease-out 0.2s 1 normal both running fadeSlideIn;">
+          <h1 class="text-6xl md:text-9xl lg:text-[10rem] leading-[0.8] tracking-tighter font-black text-white select-none">THANKS</h1>
+          <span class="text-xl md:text-3xl font-bold tracking-tighter relative -top-1 md:-top-3 border-2 px-3 py-1 rounded-full transform rotate-3 text-blue-600 border-blue-600">Household Deity</span>
+        </div>
+
+        <!-- Content Area -->
+        <div class="col-span-1 md:col-span-12 grid grid-cols-1 lg:grid-cols-12 animate-on-scroll mt-2 gap-x-12 gap-y-12 border-t-4 pt-16 border-blue-800" style="animation: 0.8s ease-out 0.3s 1 normal both running fadeSlideIn;">
+          <!-- CTA Section -->
+          <div class="col-span-1 lg:col-span-5 flex flex-col gap-10 gap-x-10 gap-y-10 items-start justify-between">
+            <p class="text-2xl font-bold tracking-tight leading-relaxed max-w-md text-blue-400">可以通过点击按钮回到首页重新了解  ↓</p>
+
+            <div class="flex items-center gap-4">
+              <button class="hover:bg-white text-black px-8 py-4 rounded-xl text-lg font-black transition-colors duration-300 border-4 hover:border-white tracking-tighter bg-blue-600 border-blue-600" role="button" onclick="window.location.href='/home'">回到首页</button>
+              <button class="w-16 h-16 rounded-xl text-white hover:text-black flex items-center justify-center transition-colors duration-300 group border-4 bg-blue-800 border-blue-800 hover:border-blue-600 hover:bg-blue-600">
+                <iconify-icon icon="solar:arrow-up-right-linear" class="text-3xl group-hover:rotate-45 transition-transform"></iconify-icon>
+              </button>
+            </div>
+          </div>
+
+          <!-- Links Grid -->
+          
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row animate-on-scroll border-t-4 pt-8 gap-x-4 gap-y-4 items-center justify-between border-blue-900" style="animation: 1s ease-out 0.5s 1 normal both running fadeSlideIn;">
+        <p class="text-base font-bold tracking-tight text-blue-600">© 2026 关于家宅六神智能家居</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-white transition-transform hover:scale-110 hover:text-blue-600">
+            <iconify-icon icon="solar:planet-linear" class="text-3xl"></iconify-icon>
+          </a>
+          <a href="#" class="text-white transition-transform hover:scale-110 hover:text-blue-600">
+            <iconify-icon icon="solar:global-linear" class="text-3xl"></iconify-icon>
+          </a>
+          <a href="#" class="text-white transition-transform hover:scale-110 hover:text-blue-600">
+            <iconify-icon icon="solar:chat-round-dots-linear" class="text-3xl"></iconify-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero Section Animations
+    const heroTl = gsap.timeline();
+    heroTl.from(".hero-content > *", {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "back.out(1.5)"
+    })
+    .from(".hero-illustration", {
+        scale: 0.9,
+        rotation: 5,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    }, "-=0.6");
+
+    // Floating Icon in Hero
+    gsap.to(".hero-icon-float", {
+        y: -15,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+    });
+
+    // Generic Fade Up for Sections
+    gsap.utils.toArray(".fade-up-element").forEach(element => {
+      gsap.from(element, {
+        scrollTrigger: {
+            trigger: element,
+            start: "top 85%"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      });
+    });
+
+    // Services Cards Stagger
+    gsap.from(".services-grid > div", {
+        scrollTrigger: {
+            trigger: ".services-grid",
+            start: "top 80%"
+        },
+        y: 80,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: "back.out(1.2)"
+    });
+
+    // Footer Scroll Animation Trigger
+    gsap.utils.toArray(".animate-on-scroll").forEach(el => {
+      ScrollTrigger.create({
+        trigger: "#footer",
+        start: "top 85%",
+        onEnter: () => {
+          el.style.animationPlayState = 'running';
+        }
+      });
+    });
+  </script></body></html>
