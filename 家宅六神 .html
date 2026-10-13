@@ -1,0 +1,817 @@
+<html lang="en" class="antialiased"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BORJAWORLD | Spatial Design</title>
+<!-- Fonts: Inter & Space Grotesk -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;family=Space+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Iconify -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<!-- GSAP / Lenis -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+<style>
+/* Core Layout */
+body {
+background-color: #F5F5F7;
+color: #0A0A0A;
+opacity: 0; /* JS Fade in */
+}
+.wrapper {
+position: relative;
+z-index: 10;
+background-color: #F5F5F7;
+margin-bottom: 100vh; /* Footer Reveal */
+border-bottom-left-radius: 2rem;
+border-bottom-right-radius: 2rem;
+box-shadow: 0 50px 100px rgba(0,0,0,0.1);
+overflow: hidden;
+}
+/* Footer Reveal Logic */
+.footer-sticky {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 100vh;
+z-index: 1;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+/* Stack Section Logic */
+.card-item {
+position: sticky;
+top: 10vh;
+height: 80vh;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 5vh;
+}
+.card-inner {
+transform-origin: center bottom;
+will-change: transform, filter;
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+}
+/* Text Reveal */
+.scrub-word { opacity: 0.2; transition: opacity 0.1s; }
+/* Noise */
+.noise {
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 9999;
+opacity: 0.04;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+/* Custom Scrollbar hide */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Image Trail Styles */
+.content {
+width: 100%;
+height: 100vh;
+position: relative;
+z-index: 20; /* Keep above bg but below nav */
+background: transparent;
+overflow: hidden;
+cursor: none; /* Hide cursor for immersion */
+}
+.content__img {
+width: 220px;
+aspect-ratio: 1.1;
+border-radius: 12px;
+position: absolute;
+top: 0;
+left: 0;
+opacity: 0;
+overflow: hidden;
+will-change: transform, opacity;
+pointer-events: none;
+box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+.content__img-inner {
+background-position: 50% 50%;
+width: calc(100% + 20px);
+height: calc(100% + 20px);
+background-size: cover;
+position: absolute;
+top: calc(-1 * 20px / 2);
+left: calc(-1 * 20px / 2);
+}
+/* Cursor Circle for Hero */
+.cursor-dot {
+position: fixed;
+top: 0;
+left: 0;
+width: 10px;
+height: 10px;
+background-color: #0A0A0A;
+border-radius: 50%;
+pointer-events: none;
+z-index: 100;
+transform: translate(-50%, -50%);
+mix-blend-mode: exclusion;
+background-color: white;
+}
+</style>
+</head>
+<body class="font-body text-sm md:text-base leading-relaxed selection:bg-black selection:text-white">
+
+    <!-- NOISE OVERLAY -->
+    <div class="noise"></div>
+
+    <!-- LOADER -->
+    
+
+
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="loader fixed flex flex-col text-blue-400 top-0 right-0 bottom-0 left-0 items-center justify-center">
+        <div class="overflow-hidden h-[1.2em] z-[9999] mb-6">
+            <div class="loader-counter font-display text-8xl md:text-9xl font-medium tracking-tighter leading-none translate-y-full">100</div>
+        </div>
+        <div class="w-64 h-[1px] overflow-hidden bg-black/10">
+            <div class="loader-progress w-0 h-full bg-black" style="width: 100%"></div>
+        </div>
+    </div><div class="wrapper">
+        
+        <!-- NEW HERO SECTION WITH IMAGE TRAIL -->
+        <section class="relative h-screen w-full bg-[#F5F5F7] overflow-hidden" id="hero">
+            
+            <!-- Trail Container -->
+            <div class="content">
+                <!-- Helper cursor -->
+                <div class="cursor-dot hidden md:block"></div>
+
+                <!-- Overlay Text (Non-interactive) -->
+                <div class="absolute inset-0 flex flex-col justify-between p-6 md:p-12 pointer-events-none z-30 mix-blend-difference text-blue-400">
+                    <div class="mt-24">
+                        <p class="text-xs font-mono tracking-widest opacity-60 uppercase">Move your cursor</p>
+                    </div>
+                    <div class="">
+                        <h1 class="font-display text-[15vw] leading-[0.8] tracking-tightest font-medium block">                       家宅六神
+                        </h1>
+                        <div class="flex justify-between items-end mt-4">
+                            <p class="max-w-xs text-sm font-light leading-relaxed opacity-80">
+                                关于家宅六神的详细介绍
+                            </p>
+                            <span class="animate-bounce">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trail Images (Hidden initially, revealed by script) -->
+                <!-- We repeat a set of high-quality architectural images -->
+                <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url(https://bkimg.cdn.bcebos.com/pic/ac6eddc451da81cb39db9116cb3fc7160924aa189bed?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080)"></div>
+                </div>
+           <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url(https://bkimg.cdn.bcebos.com/pic/f636afc379310a55b319a955281c54a98226cffcba43?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080)"></div>
+                </div>
+                <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url(https://bkimg.cdn.bcebos.com/pic/55e736d12f2eb9386026cf54dd628535e4dd6fc9?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080)"></div>
+                </div>
+                <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url(https://bkimg.cdn.bcebos.com/pic/b2de9c82d158ccbfc11473fd10d8bc3eb0354149?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080)"></div>
+                </div>
+                <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url(https://bkimg.cdn.bcebos.com/pic/6a600c338744ebf81a4c7dd2dfa3c02a6059242d099e?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080)"></div>
+                </div>
+                 <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url(https://bwg.sdada.edu.cn/__local/F/AF/6B/C78A52A180C1609382668DD0E29_5D8F288D_340DD.jpg)"></div>
+                </div>
+                <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url(https://pic1.zhimg.com/v2-59b9ee381202faf4a1599d18eca116b8_r.jpg)"></div>
+                </div>
+                <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url(https://picx.zhimg.com/v2-a28f08eb0c99017e16e3f946212583af_1440w.jpg)"></div>
+                </div>
+                 <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url(https://pic2.zhimg.com/v2-384b34bd28fb9be1a70efa9ecaed1b5d_1440w.jpg)"></div>
+                </div>
+                 <div class="content__img">
+                    <div class="content__img-inner" style="background-image: url()"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTRO -->
+        <section class="pt-32 pb-32 px-6 md:px-20 max-w-[1600px] mx-auto relative z-20">
+            <div class="grid lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4 flex flex-col justify-between border-t pt-4 border-white/10">
+                    <span class="uppercase text-xs text-blue-600 tracking-widest font-mono z-0">关于民间信奉的神明，最重要的莫过于“家宅神”，他们都具有相应的权限与法力，一方面守护家宅、保人平安，另一方面向天庭传递人间的信息。</span>
+                </div>
+                <div class="lg:col-span-8 lg:col-start-5">
+                    <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-medium leading-[1.05] tracking-tight max-w-6xl intro-scrub-text text-dark"><span class="scrub-word">谈起家宅六神， </span><span class="scrub-word">就必须先 </span><span class="scrub-word">从中国先秦时期的“五祀”说起。 </span><span class="scrub-word">《礼记》有“祭五祀”的说法，东汉的郑玄注释为： </span><span class="scrub-word">“门、井、户、灶、中霤”五种。两相参照， </span><span class="scrub-word">东汉班固 </span><span class="scrub-word">《白虎通义》也有此记载： </span><span class="scrub-word">“五祀者，何谓也？谓门、户、井、灶、中霤。”此五祀， </span><span class="scrub-word">再加上后来的厕神，合起来就是道教中的家宅六神。 </span><span class="scrub-word">此六神与我们生活 </span><span class="scrub-word">息息相关，慢待不得。 </span></h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKS STACK -->
+        <section class="stack-section pb-32">
+            <div class="px-6 md:px-20 mb-20 flex justify-between items-end">
+                <div class="">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-1.5 h-1.5 rounded-full"></div>
+                        <span class="text-xs font-medium uppercase tracking-widest text-blue-500">“家宅六神”是传统民俗中对家庭空间守护者的统称，不同地区说法略有差异，但核心都是把家宅的重要空间与日常生活秩序联系起来。</span>
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl font-medium tracking-tight text-dark">
+                        家宅
+                        <br>
+                        六神
+                    </h2>
+                </div>
+                <div class="hidden md:block">
+                    <button class="group flex items-center gap-2 text-xs font-semibold uppercase tracking-widest hover:opacity-60 transition-opacity">
+                        View Archive
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="1em" viewBox="0 0 24 24" class="group-hover:translate-x-1 transition-transform" data-icon-set="solar" data-solar="arrow-right-linear"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12H20M14 18L20 12L14 6" class=""></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="w-full max-w-7xl mx-auto px-4 md:px-6">
+                
+                <!-- Card 01 -->
+                <div class="card-item z-[9999]">
+                    <div class="card-inner md:w-[95%] border-border md:rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] w-full h-full border rounded-xl" style=" filter: none;">
+                        <div class="p-8 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-border h-[40%] lg:h-full order-2 lg:order-1" id="灶王爷">
+                            <div class="w-full">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-xs font-mono text-blue-600">腊月二十三“上天言好事”</span>
+                                    <span class="p-2 border border-border rounded-full transition-colors cursor-pointer flex items-center justify-center text-dark hover:bg-blue-950">
+                                    </span>
+                                </div>
+                                <h3 class="font-display text-2xl md:text-3xl font-medium tracking-tight mt-6 text-dark cursor-pointer" role="button" id="灶王爷" onclick="w';wa';wan';wang';wang';wang\'y';wang\'ye';window.location.href='/#灶王爷'">灶王爷</h3>
+                                <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">灶神又称灶君、灶王爷，传统上被视为掌管厨房烟火、饮食与家宅福祸的神祇。民间有腊月二十三或二十四“送灶”的习俗，寓意灶神上天汇报一家人的日常。它对应的是厨房、饮食、火候和家庭日常秩序。</p>
+                                 <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">
+                                智能转译方向：厨房安全、烟灶联动、燃气预警、菜谱辅助、饮水与饮食健康管理。</p>
+                            </div>
+                            <div class="space-y-6 hidden lg:block">
+                                <p class="text-sm leading-relaxed font-normal text-blue-500">
+                                    A minimalist concrete residence composed entirely of shadows and planes. A study in absolute privacy using light as a raw material.
+                                </p>
+                                <div class="flex gap-2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative h-[60%] lg:h-full order-1 lg:order-2 overflow-hidden bg-blue-900">
+                            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" alt="Project">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 02 -->
+                <div class="card-item">
+                    <div class="card-inner md:w-[95%] border-border md:rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] w-full h-full border rounded-xl" style=" filter: none;">
+                        <div class="p-8 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-border h-[40%] lg:h-full order-2 lg:order-1">
+                            <div class="w-full">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-xs font-mono text-blue-600">正月十五“迎紫姑”问吉凶</span>
+                                    <span class="p-2 border border-border rounded-full transition-colors cursor-pointer flex items-center justify-center text-dark hover:bg-blue-950">
+                                    </span>
+                                </div>
+                                <h3 class="font-display text-2xl md:text-3xl font-medium tracking-tight mt-6 text-dark">厕神紫姑</h3>
+                                <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">厕神常被称为紫姑，传统民俗中她既与厕所有关，也带有占卜、女性生活与日常祈愿的色彩。她的形象并不适合直接神像化，但可以理解为卫浴空间中的洁净、私密与安全守护者。</p>
+                                <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">
+                                    智能转译方向：卫浴洁净、除味换气、防滑跌倒监测、夜间柔光引导、隐私保护与本地化处理。</p>
+                            </div>
+                            <div class="space-y-6 hidden lg:block">
+                                <p class="text-sm leading-relaxed font-normal text-blue-500">
+                                    An exhibition space that disappears into the fog. White on white materials create an infinite horizon for art to exist within.
+                                </p>
+                                <div class="flex gap-2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative h-[60%] lg:h-full order-1 lg:order-2 overflow-hidden bg-blue-900">
+                            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" alt="Project">
+                        </div>
+                    </div>
+                </div>
+
+               <!-- Card 03 -->
+                <div class="card-item z-[9999]">
+                    <div class="card-inner md:w-[95%] border-border md:rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] w-full h-full border rounded-xl" style=" filter: none;">
+                        <div class="p-8 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-border h-[40%] lg:h-full order-2 lg:order-1" id="灶王爷">
+                            <div class="w-full">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-xs font-mono text-blue-600">神荼郁垒、秦琼尉迟恭守门</span>
+                                    <span class="p-2 border border-border rounded-full transition-colors cursor-pointer flex items-center justify-center text-dark hover:bg-blue-950">
+                                    </span>
+                                </div>
+                                <h3 class="font-display text-2xl md:text-3xl font-medium tracking-tight mt-6 text-dark cursor-pointer" role="button" id="灶王爷" onclick="w';wa';wan';wang';wang';wang\'y';wang\'ye';window.location.href='/#灶王爷'">门神</h3>
+                                <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">门神是最广为人知的家宅守护神，传统上多贴于大门或院门，象征驱邪避灾、守护门户。常见形象有秦琼、尉迟恭、神荼郁垒等。它对应的是“入户”这一空间节点，承担守护、迎送和边界感的功能。</p>
+                              <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">
+                             智能转译方向：入户安防、智能门锁、门前监控、开门灯效、归家欢迎场景。</p>
+                            </div>
+                            <div class="space-y-6 hidden lg:block">
+                                <p class="text-sm leading-relaxed font-normal text-blue-500">
+                                    A minimalist concrete residence composed entirely of shadows and planes. A study in absolute privacy using light as a raw material.
+                                </p>
+                                <div class="flex gap-2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative h-[60%] lg:h-full order-1 lg:order-2 overflow-hidden bg-blue-900">
+                            <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" alt="Project">
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Card 04 -->
+            <div class="card-item z-[9999]">
+                <div class="card-inner md:w-[95%] border-border md:rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] w-full h-full border rounded-xl" style=" filter: none;">
+                    <div class="p-8 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-border h-[40%] lg:h-full order-2 lg:order-1" id="灶王爷">
+                        <div class="w-full">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-mono text-blue-600">婚俗“安床”、护眠</span>
+                                <span class="p-2 border border-border rounded-full transition-colors cursor-pointer flex items-center justify-center text-dark hover:bg-blue-950">
+                                                </span>
+                            </div>
+                            <h3 class="font-display text-2xl md:text-3xl font-medium tracking-tight mt-6 text-dark cursor-pointer" role="button" id="灶王爷" onclick="w';wa';wan';wang';wang';wang\'y';wang\'ye';window.location.href='/#灶王爷'">床公床母</h3>
+                            <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">床神是守护卧室与睡眠的神祇，民间有安床、祭床等习俗，寓意安眠、健康与家庭和睦。它对应的是休息、恢复、亲密关系和夜间安全感。</p>
+                            <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">
+                                智能转译方向：助眠灯光、起夜引导、睡眠环境监测、温湿度联动、夜间静音与低打扰交互。</p>
+                        </div>
+                        <div class="space-y-6 hidden lg:block">
+                            <p class="text-sm leading-relaxed font-normal text-blue-500">
+                                A minimalist concrete residence composed entirely of shadows and planes. A study in absolute privacy
+                                using light as a raw material.
+                            </p>
+                            <div class="flex gap-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative h-[60%] lg:h-full order-1 lg:order-2 overflow-hidden bg-blue-900">
+                        <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" alt="Project">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 05 -->
+            <div class="card-item z-[9999]">
+                <div class="card-inner md:w-[95%] border-border md:rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] w-full h-full border rounded-xl" style=" filter: none;">
+                    <div class="p-8 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-border h-[40%] lg:h-full order-2 lg:order-1" id="灶王爷">
+                        <div class="w-full">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-mono text-blue-600">护井水、保水源</span>
+                                <span class="p-2 border border-border rounded-full transition-colors cursor-pointer flex items-center justify-center text-dark hover:bg-blue-950">
+                                                </span>
+                            </div>
+                            <h3 class="font-display text-2xl md:text-3xl font-medium tracking-tight mt-6 text-dark cursor-pointer" role="button" id="灶王爷" onclick="w';wa';wan';wang';wang';wang\'y';wang\'ye';window.location.href='/#灶王爷'">井泉童子</h3>
+                            <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">井神是掌管水源与水井的神祇，在自来水普及之前，井水关系到一家人的饮水、洗涤和生计，因此井神也象征洁净、滋养与资源守护。它对应的是家中“水”的来源与使用。</p>
+                            <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">
+                                智能转译方向：水质可视化、滤芯寿命提醒、用水量管理、漏水预警、净水与饮水场景联动。</p>
+                        </div>
+                        <div class="space-y-6 hidden lg:block">
+                            <p class="text-sm leading-relaxed font-normal text-blue-500">
+                                A minimalist concrete residence composed entirely of shadows and planes. A study in absolute privacy
+                                using light as a raw material.
+                            </p>
+                            <div class="flex gap-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative h-[60%] lg:h-full order-1 lg:order-2 overflow-hidden bg-blue-900">
+                        <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" alt="Project">
+                    </div>
+                </div>
+            </div>
+            <!-- Card 06 -->
+            <div class="card-item z-[9999]">
+                <div class="card-inner md:w-[95%] border-border md:rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] w-full h-full border rounded-xl" style=" filter: none;">
+                    <div class="p-8 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-border h-[40%] lg:h-full order-2 lg:order-1" id="灶王爷">
+                        <div class="w-full">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-mono text-blue-600">古代五祀之一，主宅中</span>
+                                <span class="p-2 border border-border rounded-full transition-colors cursor-pointer flex items-center justify-center text-dark hover:bg-blue-950">
+                                                            </span>
+                            </div>
+                            <h3 class="font-display text-2xl md:text-3xl font-medium tracking-tight mt-6 text-dark cursor-pointer" role="button" id="灶王爷" onclick="w';wa';wan';wang';wang';wang\'y';wang\'ye';window.location.href='/#灶王爷'">中霤神/宅神</h3>
+                            <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">
+                            土地神通常被视为一方土地的守护者；“中霤”则更接近家宅中央、屋檐与居所本身的守护神。二者可以合并理解为“家宅整体环境”的守护者，负责空间稳定、居住安宁与家庭秩序。</p>
+                            <p class="text-xs font-medium uppercase tracking-widest mt-2 text-blue-600">
+                                智能转译方向：全屋中枢、空气监测、温湿度管理、能耗管理、设备异常提醒、家庭状态面板。</p>
+                        </div>
+                        <div class="space-y-6 hidden lg:block">
+                            <p class="text-sm leading-relaxed font-normal text-blue-500">
+                                A minimalist concrete residence composed entirely of shadows and planes. A study in absolute privacy
+                                using light as a raw material.
+                            </p>
+                            <div class="flex gap-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative h-[60%] lg:h-full order-1 lg:order-2 overflow-hidden bg-blue-900">
+                        <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" alt="Project">
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </section>
+
+
+
+        <!-- AWARDS (INVERTED) -->
+        <section class="z-20 text-blue-400 pt-48 pb-48 relative" id="inverted-section">
+            <div class="px-6 md:px-20 max-w-[1600px] mx-auto grid md:grid-cols-2 gap-16">
+                <div class="reveal-item">
+                    <span class="text-xs font-mono block mb-6 tracking-widest text-blue-500">关于这些家宅小神</span>
+                    <h2 class="font-display text-5xl md:text-7xl font-medium tracking-tighter leading-none text-blue-400">
+                        对应的
+                        <br>
+                        智能家居
+                    </h2>
+                </div>
+                <div class="flex flex-col gap-0 reveal-item">
+                    <div class="flex group hover:pl-4 transition-all duration-300 cursor-default border-blue-600/10 border-b pt-6 pb-6 pl-4 items-baseline justify-between" role="button" onclick="\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';\&quot;&gt;';window.location.href='/page'">
+                    </div>
+                    <div class="flex group hover:pl-4 transition-all duration-300 cursor-default border-blue-600/10 border-b pt-6 pb-6 pl-4 items-baseline justify-between" role="button" onclick="w';wa';wan';wang';wang\'y';wang\'ye';window.location.href='/#灶王爷'">
+                        <span class="text-lg md:text-xl font-normal group-hover:text-white transition-colors text-blue-700" role="button" onclick="w';wa';wan';wang';wang\'y';wang\'ye';w';wa';wan';wang';wang\'y';wang\'ye';window.location.href='/page #灶王爷'"> 灶王爷</span>
+                        <span class="text-xs font-mono text-blue-400">厨房中控屏</span>
+                    </div>
+                    <div class="flex group hover:pl-4 transition-all duration-300 cursor-default border-blue-600/10 border-b pt-6 pb-6 pl-4 items-baseline justify-between">
+                        <span class="text-lg md:text-xl font-normal group-hover:text-white transition-colors text-blue-700">厕神紫姑</span>
+                        <span class="text-xs font-mono text-blue-400">浴室魔镜</span>
+                    </div>
+                    <div class="flex group hover:pl-4 transition-all duration-300 cursor-default border-blue-600/10 border-b pt-6 pb-6 pl-4 items-baseline justify-between">
+                        <span class="text-lg md:text-xl font-normal group-hover:text-white transition-colors text-blue-700">门神</span>
+                        <span class="text-xs font-mono text-blue-400">智能门锁</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b py-6 group hover:pl-4 transition-all duration-300 cursor-default border-blue-600/10">
+                        <span class="text-lg md:text-xl font-normal group-hover:text-white transition-colors text-blue-700">床公床母</span>
+                        <span class="text-xs font-mono text-blue-400">智能床头挡板</span>
+                    </div>
+                    <div class="flex justify-between items-baseline border-b py-6 group hover:pl-4 transition-all duration-300 cursor-default border-blue-600/10">
+                        <span class="text-lg md:text-xl font-normal group-hover:text-white transition-colors text-blue-700">井泉童子</span>
+                        <span class="text-xs font-mono text-blue-400">智能净水器</span>
+                   </div>
+                    <div class="flex justify-between items-baseline border-b py-6 group hover:pl-4 transition-all duration-300 cursor-default border-blue-600/10">
+                        <span class="text-lg md:text-xl font-normal group-hover:text-white transition-colors text-blue-700">中霤神</span>
+                        <span class="text-xs font-mono text-blue-400">天花板智能灯</span>
+                </div>
+            </div>
+        </div></section>
+
+        <!-- PHILOSOPHY / SPACER -->
+        <section class="md:py-48 flex flex-col overflow-hidden text-center pt-32 pr-6 pb-32 pl-6 relative items-center justify-center">
+            <h2 class="font-display text-3xl md:text-5xl font-medium tracking-tight mb-8 relative z-10 text-dark">
+                关于为什么选择智能家居
+                <span class="italic font-light text-blue-600">作为家宅六神的载体</span>
+            </h2>
+            <div class="max-w-lg font-light leading-relaxed relative z-10 text-blue-500">
+               家宅六神原本守护的是门、灶、床、厕、井、宅中这些日常生活空间。随着现代居住形态变化，灶台、水井、庭院等空间消失，传统祭祀仪式淡化，六神文化逐渐从日常中退场。但人们对安全、睡眠、用水、洁净、出入和家宅安稳的需求并没有消失，只是表达方式变了。
+
+            </div>
+            <!-- Decorative Grid -->
+            <div class="absolute inset-0 z-0 opacity-[0.03]" style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 20px 20px"></div>
+        </section>
+ <!-- PHILOSOPHY / SPACER -->
+        <section class="md:py-48 flex flex-col overflow-hidden text-center pt-32 pr-6 pb-32 pl-6 relative items-center justify-center">
+
+            
+            <div class="max-w-lg font-light leading-relaxed relative z-10 text-blue-500">
+智能家居正好对应这些需求：门神对应智能门锁与安防，灶神对应厨房安全与饮食管理，床公床母对应睡眠与夜间关怀，紫姑对应卫浴洁净与健康，井泉童子对应用水安全，中霤神对应全屋中枢与空间秩序。把六神转译为智能场景，既能让传统文化重新进入现代生活，也能让智能家居拥有更温暖的文化叙事。
+            </div>
+            <!-- Decorative Grid -->
+            <div class="absolute inset-0 z-0 opacity-[0.03]" style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 40px 40px"></div>
+        </section>
+
+    </div>
+    <!-- END WRAPPER -->
+
+    <!-- FOOTER (STICKY REVEAL) -->
+    <footer class="footer-sticky text-blue-400 bg-blue-200">
+        <div class="absolute inset-0 z-0">
+            <img src="https://ts1.tc.mm.bing.net/th/id/R-C.45bcb683a4ccf963d2cb6a25dbddd9df?rik=Rsef9%2fHA9Vc%2fVQ&amp;riu=http%3a%2f%2fp2.itc.cn%2fq_70%2fimages03%2f20200811%2f4d55c7319ae64e9b9ed51c9c22913efd.jpeg&amp;ehk=rCWzpb72pjoBiYinbVAxCczbdIp1UxtkciJ8kY%2fxMRk%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" class="w-full h-full object-cover opacity-20 pointer-events-none grayscale">
+            <div class="absolute inset-0 bg-gradient-to-t to-transparent from-white via-white/80"></div>
+        </div>
+
+        <div class="relative z-10 text-center w-full max-w-5xl mx-auto px-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border backdrop-blur-sm mb-8 bg-blue-500/5 border-blue-600/10">
+                <div class="w-1.5 h-1.5 rounded-full animate-pulse bg-indigo-500"></div>
+                <span class="text-[10px] uppercase tracking-widest font-medium text-blue-700">Back to the mainpage</span>
+            </div>
+
+            <a href="/home" class="block group">
+                <h2 class="font-display text-[10vw] leading-[0.8] font-medium tracking-tighter transition-colors duration-500 group-hover:text-blue-300 text-blue-400">
+                    回到主页面
+
+
+    
+
+
+
+
+<script>
+        // --- 1. UTILS ---
+        const lerp = (a, b, n) => (1 - n) * a + n * b;
+        
+        const getLocalPointerPos = (e, rect) => {
+            let clientX = 0, clientY = 0;
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        };
+
+        const getMouseDistance = (p1, p2) => Math.hypot(p1.x - p2.x, p1.y - p2.y);
+
+        // --- 2. TRAIL CLASSES ---
+        class ImageItem {
+            constructor(DOM_el) {
+                this.DOM = { el: DOM_el };
+                this.DOM.inner = this.DOM.el.querySelector('.content__img-inner');
+                this.defaultStyle = { scale: 1, x: 0, y: 0, opacity: 0 };
+                this.rect = null;
+                this.getRect();
+                this.initEvents();
+            }
+            initEvents() {
+                this.resize = () => {
+                    gsap.set(this.DOM.el, this.defaultStyle);
+                    this.getRect();
+                };
+                window.addEventListener('resize', this.resize);
+            }
+            getRect() {
+                this.rect = this.DOM.el.getBoundingClientRect();
+            }
+        }
+
+        class ImageTrail {
+            constructor(container) {
+                this.container = container;
+                this.DOM = { el: container };
+                this.images = [...this.DOM.el.querySelectorAll('.content__img')].map(img => new ImageItem(img));
+                this.imagesTotal = this.images.length;
+                this.imgPosition = 0;
+                this.zIndexVal = 1;
+                this.activeImagesCount = 0;
+                this.isIdle = true;
+                this.threshold = 80;
+
+                this.mousePos = { x: 0, y: 0 };
+                this.lastMousePos = { x: 0, y: 0 };
+                this.cacheMousePos = { x: 0, y: 0 };
+
+                const handlePointerMove = ev => {
+                    const rect = this.container.getBoundingClientRect();
+                    this.mousePos = getLocalPointerPos(ev, rect);
+                    
+                    // Update custom cursor
+                    gsap.to('.cursor-dot', {
+                        x: ev.clientX,
+                        y: ev.clientY,
+                        duration: 0.1,
+                        ease: 'power2.out'
+                    });
+                };
+                container.addEventListener('mousemove', handlePointerMove);
+                container.addEventListener('touchmove', handlePointerMove);
+
+                const initRender = ev => {
+                    const rect = this.container.getBoundingClientRect();
+                    this.mousePos = getLocalPointerPos(ev, rect);
+                    this.cacheMousePos = { ...this.mousePos };
+                    requestAnimationFrame(() => this.render());
+                    container.removeEventListener('mousemove', initRender);
+                    container.removeEventListener('touchmove', initRender);
+                };
+                container.addEventListener('mousemove', initRender);
+                container.addEventListener('touchmove', initRender);
+            }
+
+            render() {
+                let distance = getMouseDistance(this.mousePos, this.lastMousePos);
+                this.cacheMousePos.x = lerp(this.cacheMousePos.x, this.mousePos.x, 0.1);
+                this.cacheMousePos.y = lerp(this.cacheMousePos.y, this.mousePos.y, 0.1);
+
+                if (distance > this.threshold) {
+                    this.showNextImage();
+this.lastMousePos = { ...this.mousePos };
+                }
+
+                requestAnimationFrame(() => this.render());
+            }
+
+            showNextImage() {
+                const img = this.images[this.imgPosition];
+                // Kill any ongoing tweens on this image
+                gsap.killTweensOf(img.DOM.el);
+                gsap.killTweensOf(img.DOM.inner);
+
+                img.DOM.el.style.zIndex = this.zIndexVal++;
+                
+                // Position centered to mouse
+                const x = this.mousePos.x - img.rect.width / 2;
+                const y = this.mousePos.y - img.rect.height / 2;
+
+                // Set initial state
+                gsap.set(img.DOM.el, {
+                    x: x,
+                    y: y,
+                    opacity: 1,
+                    scale: 1,
+                    rotation: Math.random() * 10 - 5
+                });
+                gsap.set(img.DOM.inner, { scale: 1.2 });
+
+                // Animate inner image scale
+                gsap.to(img.DOM.inner, {
+                    duration: 1.5,
+                    ease: "power3.out",
+                    scale: 1
+                });
+
+                // Animate image fade out and shrink
+                gsap.to(img.DOM.el, {
+                    duration: 0.8,
+                    ease: "power2.out",
+                    opacity: 0,
+                    scale: 0.8,
+                    delay: 0.4
+                });
+
+                // Update position for next cycle
+                this.imgPosition = this.imgPosition < this.imagesTotal - 1 ? this.imgPosition + 1 : 0;
+            }
+        }
+
+        // --- 3. INIT ANIMATIONS & LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Register GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Initialize Lenis Smooth Scroll
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+            });
+
+            // Synchronize Lenis and GSAP ScrollTrigger
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+            gsap.ticker.lagSmoothing(0);
+
+            // Start RAF loop
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            // --- LOADER TIMELINE ---
+            const tlLoader = gsap.timeline();
+            let counter = { value: 0 };
+            
+            tlLoader.to(counter, {
+                value: 100,
+                duration: 2,
+                ease: "power3.inOut",
+                onUpdate: () => {
+                    const val = Math.round(counter.value);
+                    document.querySelector('.loader-counter').innerText = val;
+                }
+            }, 0)
+            .to('.loader-progress', { width: '100%', duration: 2, ease: "power3.inOut" }, 0)
+            .to('.loader-counter', { y: '0%', duration: 1, ease: "power4.out" }, 0)
+            .to('.loader', { yPercent: -100, duration: 1, ease: "power4.inOut", delay: 0.3 })
+            .to('body', { opacity: 1, duration: 0.1 }, "-=1") // Reveal page wrapper
+            .from('.wrapper', { y: 100, duration: 1.2, ease: "power3.out" }, "-=0.8")
+            .call(() => {
+                // Initialize Image Trail on Hero Section once loaded
+                const container = document.querySelector('.content');
+                if (container) new ImageTrail(container);
+            });
+
+            // --- TEXT SCRUB EFFECT (INTRO) ---
+            const introText = document.querySelector('.intro-scrub-text');
+            if (introText) {
+                const text = introText.innerText;
+                introText.innerHTML = '';
+                // Split by words
+                text.split(' ').forEach(word => {
+                    const span = document.createElement('span');
+                    span.className = 'scrub-word';
+                    span.innerText = word + ' ';
+                    introText.appendChild(span);
+                });
+
+                gsap.to('.scrub-word', {
+                    scrollTrigger: {
+                        trigger: '.intro-scrub-text',
+                        start: "top 80%",
+                        end: "bottom 50%",
+                        scrub: 1,
+                    },
+                    opacity: 1,
+                    stagger: 0.1,
+                    ease: "none"
+                });
+            }
+
+            // --- STACKING CARDS EFFECT ---
+            const cards = gsap.utils.toArray('.card-item');
+            cards.forEach((card, i) => {
+                const inner = card.querySelector('.card-inner');
+                // Calculate scale and brightness reductions based on position
+                const scaleDown = 1 - ((cards.length - i - 1) * 0.04);
+                const brightnessDown = 1 - ((cards.length - i - 1) * 0.15);
+
+                gsap.to(inner, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 10vh",
+                        endTrigger: ".stack-section",
+                        end: "bottom bottom",
+                        scrub: true,
+                    },
+                    scale: scaleDown,
+                    filter: `brightness(${brightnessDown})`,
+                    ease: "none"
+                });
+            });
+
+            // --- HORIZONTAL SCROLL SECTION ---
+            const horizSection = document.querySelector('#horiz-scroll');
+            const horizWrap = document.querySelector('.horiz-wrap');
+            
+            if (horizSection && horizWrap) {
+                let totalWidth = horizWrap.offsetWidth - window.innerWidth;
+                gsap.to(horizWrap, {
+                    x: -totalWidth,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: horizSection,
+                        pin: true,
+                        scrub: 1,
+                        // Pin duration relative to the horizontal width
+                        end: () => "+=" + totalWidth
+                    }
+                });
+            }
+
+            // --- PARALLAX GRID ---
+            const parallaxCols = document.querySelectorAll('.parallax-col');
+            parallaxCols.forEach((col, i) => {
+                // Alternate directions for columns
+                const direction = i % 2 === 0 ? -120 : 80;
+                gsap.to(col, {
+                    y: direction,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: '#parallax-grid',
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+            });
+
+            // --- FADE UP REVEALS ---
+            const revealItems = document.querySelectorAll('.reveal-item');
+            revealItems.forEach(item => {
+                gsap.from(item, {
+                    y: 60,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 85%"
+                    }
+                });
+            });
+        });
+    </script></h2></a></div></footer>
+
+
+
+
+
+
+
+</body></html>
